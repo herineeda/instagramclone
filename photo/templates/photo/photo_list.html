@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+
+<div class='container'>
+    <div class='row'>
+        <div class='col'></div>
+        <div class="col-5">
+            {% for object in object_list %}
+<br>
+            <div class="card">
+                <div class="card-header">
+                    {{ object.author }}
+                </div>
+
+                <img src=" {{ object.image.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text"> {{ object.text }}</p>
+                </div>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item"> 생성일: {{ object.created }}</li>
+                    <li class="list-group-item"> 생성일: {{ object.updated }}</li>
+
+                </ul>
+                <div class="card-body">
+                    <a href="{% url 'photo:detail' object.id %}" class="card-link">댓글달기</a>
+                    {% if user == object.author %} 
+                    {% comment %} 분기를 통해 간단하게 화면에서 안 나오게 만든다 사용자가 주소를 입력하여 접속하면 문제 생기는데 -> super로 해결 {% endcomment %}
+                    <a href="{% url 'photo:update' object.id %}" class="card-link">수정하기</a>
+                    <a href="{% url 'photo:delete' object.id %}" class="card-link">삭제하기</a>
+                {% endif %}
+                </div>
+            </div>
+            </br>
+            {% endfor %}
+        </div>
+
+        <div class ="col"></div>
+    </div>
+</div>
+
+{% endblock %}
